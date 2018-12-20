@@ -52,6 +52,15 @@ node {
             
         }
         
+		stage('Create Password for ScratchOrg')
+		{
+		if (isUnix()) {
+                    rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:org:user:password:generate -u TestJenkins"
+              }else{
+                   rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:org:user:password:generate -u TestJenkins"
+              }
+		}
+		
           stage('Push To Test Org') {
               if (isUnix()) {
                     rc = sh returnStatus: true, script: "\"${toolbelt}\" force:source:push --targetusername ${SFDC_USERNAME}"
